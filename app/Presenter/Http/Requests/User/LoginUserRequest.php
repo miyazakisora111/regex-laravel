@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Presenter\Http\User\Create;
+namespace App\Presenter\Http\Requests\User;
 
-use App\Application\User\Create\CreateUserCommand;
+use App\Application\User\Login\LoginUserCommand;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+class LoginUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,14 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
             'email' => 'required',
             'password' => 'required',
         ];
     }
 
-    public function toCommand(): CreateUserCommand
+    public function toCommand(): LoginUserCommand
     {
-        return new CreateUserCommand(
+        return new LoginUserCommand(
             ...$this->safe()->all()
         );
     }

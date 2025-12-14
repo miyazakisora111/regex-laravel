@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Presenter\Http\User\Login;
+namespace App\Presenter\Http\Controllers\Api\User;
 
 use App\Application\User\Login\LoginUserCommandHandler;
+use App\Presenter\Http\Requests\User\LoginUserRequest;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginUserController
+class ApiLoginUserController
 {
     public function __construct(
         private readonly LoginUserCommandHandler $loginUserCommandHandler
-    ) {
-    }
+    ) {}
 
     public function __invoke(LoginUserRequest $request): JsonResponse | Response
     {

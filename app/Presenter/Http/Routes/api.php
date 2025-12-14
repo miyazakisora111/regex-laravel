@@ -2,9 +2,22 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\File;
+use App\Presenter\Http\Controllers\Api\{
+    User\ApiCreateUserController,
+    User\ApiLoadUserController,
+    User\ApiLoginUserController
+};
 use Illuminate\Support\Facades\Route;
 
-foreach (File::allFiles(__DIR__ . '/v1') as $partial) {
-    Route::prefix('/v1')->group($partial->getPathname());
-}
+// API 用ルート
+Route::prefix('api')->group(function () {
+
+    // 認証済みユーザー向け
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/user', ApiCreateUserController::class);
+        Route::get('/user/{userId}', ApiLoadUserController::class);
+    });
+
+    // 認証不要
+    Route::post('/user/login', ApiLoginUserController::class);
+});

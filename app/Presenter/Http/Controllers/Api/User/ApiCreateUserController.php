@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Presenter\Http\User\Create;
+namespace App\Presenter\Http\Controllers\Api\User;
 
 use App\Application\User\Create\CreateUserCommandHandler;
+use App\Presenter\Http\Requests\User\CreateUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateUserController
+class ApiCreateUserController
 {
     public function __construct(
         private readonly CreateUserCommandHandler $createHandler
-    ) {
-    }
+    ) {}
 
     public function __invoke(CreateUserRequest $request): Response
     {
