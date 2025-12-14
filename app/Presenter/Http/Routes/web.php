@@ -11,8 +11,15 @@ use Illuminate\Support\Facades\Route;
 
 // トップページアクセス
 Route::get('/', function () {
-    return redirect()->route('login.index');
+    return redirect()->route('user.login');
 });
+
+// 認証不要
+// MOTE: ミドルウェアでの遷移を考慮して、ミドルウェアの外に置く。
+Route::get('/user/login', [WebLoginUserController::class, 'index'])
+    ->name('user.login');
+Route::post('/user/login', [WebLoginUserController::class, '__invoke'])
+    ->name('login.submit');
 
 // Web 用ルート
 Route::middleware('web')->group(function () {
@@ -22,10 +29,4 @@ Route::middleware('web')->group(function () {
         Route::post('/user', WebCreateUserController::class);
         Route::get('/user/{userId}', WebLoadUserController::class);
     });
-
-    // 認証不要
-    Route::get('/user/login', [WebLoginUserController::class, 'index'])
-        ->name('login.index');
-    Route::post('/user/login', [WebLoginUserController::class, '__invoke'])
-        ->name('login.submit');
 });
