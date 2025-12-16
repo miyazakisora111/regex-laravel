@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 // 認証不要
-// MOTE: ミドルウェアでの遷移を考慮して、ミドルウェアの外に置く。
+// NOTE: ミドルウェアでの遷移を考慮して、ミドルウェアの外に置く。
 Route::get('/user/login', [WebLoginUserController::class, 'index'])
     ->name('user.login');
 Route::post('/user/login', [WebLoginUserController::class, '__invoke'])

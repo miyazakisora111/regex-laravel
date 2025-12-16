@@ -1,25 +1,32 @@
 up:
 	./vendor/bin/sail up -d
+
 down:
 	./vendor/bin/sail down
 
 ssh:
-	docker-compose exec laravel.test sh
+	./vendor/bin/sail shell
+
+artisan:
+	./vendor/bin/sail artisan $(cmd)
+
+npm-install:
+	./vendor/bin/sail npm install
+
+dev:
+	./vendor/bin/sail npm run dev
+
+build:
+	./vendor/bin/sail npm run build
 
 optimize:
-	docker-compose exec laravel.test php artisan optimize
-	docker-compose exec laravel.test php artisan route:clear
-	docker-compose exec laravel.test php artisan config:cache
-	docker-compose exec laravel.test php artisan  config:clear
+	./vendor/bin/sail artisan optimize
 
-refresh:
-	docker-compose exec laravel.test php artisan migrate
+migrate:
+	./vendor/bin/sail artisan migrate
 
 test:
-	docker-compose exec laravel.test php artisan test --coverage --min=75.3
+	./vendor/bin/sail artisan test
 
 phpcs:
-	docker-compose exec laravel.test ./vendor/bin/phpcs --standard=phpcs.xml --colors -ps $(opt)
-
-phpcbf:
-	docker-compose exec laravel.test ./vendor/bin/phpcbf --standard=phpcs.xml --extensions=php
+	./vendor/bin/sail exec laravel.test ./vendor/bin/phpcs
