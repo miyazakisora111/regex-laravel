@@ -15,7 +15,7 @@ class WebLoginController
 
     public function index()
     {
-        return view('user.login');
+        return view('login');
     }
 
     public function __invoke(LoginRequest $request)
