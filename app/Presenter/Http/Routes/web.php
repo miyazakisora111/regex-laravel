@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Presenter\Http\Controllers\Web\WebLoginController;
 use App\Presenter\Http\Controllers\Web\User\{
     WebCreateUserController,
     WebLoadUserController,
-    WebLoginUserController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +16,9 @@ Route::get('/', function () {
 
 // 認証不要
 // NOTE: ミドルウェアでの遷移を考慮して、ミドルウェアの外に置く。
-Route::get('/user/login', [WebLoginUserController::class, 'index'])
+Route::get('/user/login', [WebLoginController::class, 'index'])
     ->name('user.login');
-Route::post('/user/login', [WebLoginUserController::class, '__invoke'])
+Route::post('/user/login', [WebLoginController::class, '__invoke'])
     ->name('login.submit');
 
 // Web 用ルート

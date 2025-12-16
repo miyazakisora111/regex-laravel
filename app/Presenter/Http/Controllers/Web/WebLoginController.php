@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Presenter\Http\Controllers\Web\User;
+namespace App\Presenter\Http\Controllers\Web;
 
 use App\Application\User\Login\LoginUserCommandHandler;
-use App\Presenter\Http\Requests\User\LoginUserRequest;
+use App\Presenter\Http\Requests\LoginRequest;
 
-class WebLoginUserController
+class WebLoginController
 {
     public function __construct(
         private readonly LoginUserCommandHandler $commandHandler
@@ -18,7 +18,7 @@ class WebLoginUserController
         return view('user.login');
     }
 
-    public function __invoke(LoginUserRequest $request)
+    public function __invoke(LoginRequest $request)
     {
         $this->commandHandler->handle($request->toCommand());
         return redirect('/home');
